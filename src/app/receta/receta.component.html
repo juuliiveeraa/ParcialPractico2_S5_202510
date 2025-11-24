@@ -1,20 +1,21 @@
-<h4>Receta </h4>
-<h5 >Total de calorias: {{receta.totalCalorias}}</h5>
+<div class="card p-4">
+  <h2>Receta</h2>
+  <h4 class="mt-2">Calorías totales: {{ getCaloriasTotales() }}</h4>
 
-<div id="receta">
-    @for( ing of receta.receta; track $index){
-         <div > 
-        <h5> {{ing.nombre}}</h5>
-        <p> {{ing.descripcion}}</p>
-        <div class="container text-center">
-        <div class="row row-cols-4">
-            <div class="col">Cantidad: {{ing.cantidad}}</div>
-            <div class="col">Calorias: {{ing.calorias}}</div>
-            <div class="col"> <button (click)="agregarOtro(ing)"> agregar otro </button></div>
-            <div class="col"><button (click)="eliminar(ing)">Eliminar</button></div>
-        </div>
-        </div>
+  <div *ngFor="let item of seleccion" class="card my-3 p-3 border rounded">
+    <h5 class="mb-1">{{ item.ingrediente.nombre }}</h5>
+    <p class="mb-2 text-muted">{{ item.ingrediente.descripcion }}</p>
+
+    <div class="d-flex align-items-center gap-3">
+      <strong>Cantidad: {{ item.cantidad }}</strong>
+      <strong>Calorías: {{ getCaloriasIngrediente(item) }}</strong>
+
+      <div style="margin-left:auto">
+        <button class="btn btn-sm btn-success me-2" (click)="agregarOtro(item)">Agregar otro</button>
+        <button class="btn btn-sm btn-danger" (click)="eliminar.emit(item.ingrediente)">Eliminar</button>
+      </div>
     </div>
-    }
-</div>
+  </div>
 
+  <h3 class="mt-3">Total: {{ getCaloriasTotales() }} cal</h3>
+</div>

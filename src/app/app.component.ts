@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IngredientesService } from './servicio/ingredientes.service';
 import { Ingrediente } from './modelo/ingrediente';
 import { Receta } from './modelo/receta';
-import { IngredienteReceta } from './modelo/IngredienteReceta';
+import { IngredienteReceta } from './modelo/ingredienteReceta';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +16,7 @@ export class AppComponent {
 
   ingredientes: Ingrediente[] = [];
   receta: Receta = new Receta();
+  seleccion: { ingrediente: Ingrediente, cantidad: number }[] = [];
 
   constructor(private service: IngredientesService) {}
 
@@ -27,12 +28,21 @@ export class AppComponent {
   
 
   agregarIngrediente(ing: Ingrediente) {
-    this.receta.agregarIngrediente(ing);
+    const e = this.seleccion.find(x => x.ingrediente.id === ing.id);
+    if (e) {
+      e.cantidad++;
+    } else {
+      this.seleccion.push({ ingrediente: ing, cantidad: 1 });
+    }
   }
   
 
-  eliminarIngrediente(ing: IngredienteReceta) {
-  this.receta.eliminarIngrediente(ing);
+  eliminarIngrediente(ing: Ingrediente) {
+  const idx = this.seleccion.findIndex(x => x.ingrediente.id === ing.id);
+    if (idx >= 0) {
+      this.seleccion[idx].cantidad--;
+      if (this.seleccion[idx].cantidad <= 0) this.seleccion.splice(idx, 1);
+    }
   }
 
   duplicarIngrediente(ing: IngredienteReceta) {

@@ -1,4 +1,4 @@
-import { IngredienteReceta } from './IngredienteReceta';
+import { IngredienteReceta } from './ingredienteReceta';
 import { Ingrediente } from './ingrediente';
 
 export class Receta {

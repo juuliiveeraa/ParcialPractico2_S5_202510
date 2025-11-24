@@ -1,15 +1,11 @@
- <div class="row">
-    <div class="col">
-        <app-ingredientes
-            [ingredientes]="ingredientes"
-            (ingredienteSeleccionado)="agregarIngrediente($event)">
-        </app-ingredientes>
-
+<div class="container-fluid p-4">
+    <div class="row">
+      <div class="col-md-6">
+        <app-ingredientes (agregarIngrediente)="agregarIngrediente($event)"></app-ingredientes>
+      </div>
+  
+      <div class="col-md-6">
+        <app-receta [seleccion]="seleccion" (eliminar)="eliminarIngrediente($event)"></app-receta>
+      </div>
     </div>
-    <div class="col">
-        <app-receta
-            [receta]="receta"
-            (ingredienteEliminado)="eliminarIngrediente($event)">
-        </app-receta>
-    </div>
- </div>
+  </div>

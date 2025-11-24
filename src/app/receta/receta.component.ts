@@ -1,6 +1,6 @@
-import { Component, Input, output} from '@angular/core';
-import { Receta } from '../modelo/Receta';
-import { IngredienteReceta } from '../modelo/IngredienteReceta';
+import { Component, EventEmitter, Input, Output, output} from '@angular/core';
+import { IngredienteReceta } from '../modelo/ingredienteReceta';
+import { Ingrediente } from '../modelo/ingrediente';
 
 @Component({
   selector: 'app-receta',
@@ -10,18 +10,17 @@ import { IngredienteReceta } from '../modelo/IngredienteReceta';
 })
 
 export class RecetaComponent {
+  @Input() seleccion: {ingrediente: Ingrediente, cantidad: number} []=[];
+  @Output() eliminar = new EventEmitter<Ingrediente>();
 
-  @Input() receta: Receta= new Receta();
-
-  readonly agregarIngrediente = output<IngredienteReceta>();
-  readonly ingredienteEliminado = output<IngredienteReceta>();
-
-  eliminar(ing: IngredienteReceta) {
-    this.ingredienteEliminado.emit(ing);
-  } 
-
-  agregarOtro(ing: IngredienteReceta) {
-    this.agregarIngrediente.emit(ing);
+  getCaloriasIngrediente(item: {ingrediente: Ingrediente, cantidad: number}){
+    return item.ingrediente.calorias * item.cantidad;
+  }
+  getCaloriasTotales(){
+    return this.seleccion.reduce((s,i) => s + this.getCaloriasIngrediente(i), 0);
+  }
+  agregarOtro(item: { ingrediente: Ingrediente, cantidad: number }) {
+    item.cantidad++;
   }
 
 

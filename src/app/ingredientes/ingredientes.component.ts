@@ -1,4 +1,4 @@
-import { Component, Input, output, OnInit } from '@angular/core';
+import { Component, Input, output, OnInit, EventEmitter, Output} from '@angular/core';
 import { IngredientesService } from '../servicio/ingredientes.service';
 import { Ingrediente } from '../modelo/ingrediente';
 
@@ -13,11 +13,17 @@ export class IngredientesComponent {
   constructor(private ingredientesService: IngredientesService) {}
 
   @Input() ingredientes: Ingrediente[] = [];
+  @Output() agregarIngrediente = new EventEmitter<Ingrediente>();
 
   readonly ingredienteSeleccionado = output<Ingrediente>();
 
-  agregar(ing: Ingrediente) {
-    this.ingredienteSeleccionado.emit(ing);
+  ngOnInit(): void {
+    this.ingredientesService.obtenerIngredientes().subscribe(list => this.ingredientes = list);
+  }
+  agregar(ing: Ingrediente){
+    this.agregarIngrediente.emit(ing);
+
+
   }
 
 }
