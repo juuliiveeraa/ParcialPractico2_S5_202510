@@ -1,0 +1,20 @@
+<h4>Receta </h4>
+<h5 >Total de calorias: {{receta.totalCalorias}}</h5>
+
+<div id="receta">
+    @for( ing of receta.receta; track $index){
+         <div > 
+        <h5> {{ing.nombre}}</h5>
+        <p> {{ing.descripcion}}</p>
+        <div class="container text-center">
+        <div class="row row-cols-4">
+            <div class="col">Cantidad: {{ing.cantidad}}</div>
+            <div class="col">Calorias: {{ing.calorias}}</div>
+            <div class="col"> <button (click)="agregarOtro(ing)"> agregar otro </button></div>
+            <div class="col"><button (click)="eliminar(ing)">Eliminar</button></div>
+        </div>
+        </div>
+    </div>
+    }
+</div>
+

@@ -1,0 +1,21 @@
+<h4>Ingredientes </h4>
+
+<div id="lista">
+
+    @for( ingre of ingredientes; track $index){        
+    <div class="row">
+    <div class="col-6 col-md-4"> <img src="{{ingre.imagen}}" alt="{{ingre.nombre}}"></div>
+    <div class="col-md-8">
+        <div>
+            <h5>{{ingre.nombre}}</h5>
+            <p>{{ingre.descripcion}}</p>
+            <div class="row">
+                <div class="col">Calorias: {{ingre.calorias}}</div>
+                <div class="col"><button class="btn btn-info" (click)="agregar(ingre)">Agregar</button></div>
+            </div>
+        </div>
+    </div>
+    
+  </div>
+    }
+</div>
